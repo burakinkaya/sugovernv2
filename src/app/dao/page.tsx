@@ -20,7 +20,7 @@ import ClawBack from "../../../daoTabs/ClawBack";
 import Delegate from "../../../daoTabs/Delegate";
 import DeleteDAO from "../../../daoTabs/DeleteDAO";
 import Header from "../../components/Header";
-import Sidebar from "../../components/SideBar";
+import Sidebar from "../SideBar";
 import LockScreen from "../../components/LockScreen";
 import TransferTokens from "../../../daoTabs/TransferTokens";
 import {
@@ -1221,97 +1221,91 @@ export default function Dao() {
         </div>
       </div>
 
-      {/* <div style={{ minHeight: "100vh" }}>
-        {!initialized ? (
-          <Spinner></Spinner>
-        ) : (
-          <div className="row mx-0">
-            <div className="bg-green-500">
-              <Sidebar
-                setSelectedNavItem={setSelectedNavItem}
-                selectedNavItem={selectedNavItem}
-                status={"admin"}
-                ykBalance={ykBalance}
-                voterBalance={voterBalance}
-                walletAddress={walletAddress}
-                isAdmin={isAdmin}
-              />
-              <div style={{ padding: "30px" }}>
-                <div className="row">
-                  <div className="col-xl-4 col-lg-3 col-md-2 col-sm-1 col-xs-1"></div>
-                  <div className="col-xl-4 col-lg-6 col-md-8 col-sm-10 col-xs-10">
-                    <div className="card mb-3">
-                      <img
-                        className="card-img-top rounded-0"
-                        alt="dao-image"
-                        src={daoInfo.imageUrl}
-                      />
-                       
-                      <div className="card-body">
-                        <h4 className="h4 card-title text-center text-black">
-                          {daoInfo.name}
-                        </h4>
-                        <br />
-                        <p className="card-text">
-                          <small className="text-dark">Welcome!</small>
-                        </p>
-                        <p className="card-text">
-                          <small className="text-dark">
-                            {daoInfo.description}
-                          </small>
-                        </p>
-                        <div className="d-flex justify-content-between">
-                          <button
-                            type="button"
-                            className="btn btn-outline-primary"
-                            onClick={() => {
-                              setSelectedNavItem(11);
-                            }}
-                            style={{ margin: 2, padding: 2 }}
-                          >
-                            {daoInfo.num_children} subDAOs
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-outline-primary"
-                            onClick={() => {
-                              setSelectedNavItem(10);
-                            }}
-                            style={{ margin: 5, padding: 2 }}
-                          >
-                            {daoInfo.total_proposals} proposals created
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-xl-4 col-lg-3 col-md-2 col-sm-1 col-xs-1"></div>
-                </div>
-                <div
-                  style={{
-                    width: "60vw",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                  }}
-                >
-                  <div className="row mt-5">
-                    {transactionInProgress ? <LockScreen></LockScreen> : <></>}
-                    {getHTMLBody()}
+      <div className="min-h-screen">
+  {!initialized ? (
+    <Spinner />
+  ) : (
+    <div className="flex flex-col mx-0">
+      <div className="bg-green-500">
+        <Sidebar
+          setSelectedNavItem={setSelectedNavItem}
+          selectedNavItem={selectedNavItem}
+          status={"admin"}
+          ykBalance={ykBalance}
+          voterBalance={voterBalance}
+          walletAddress={walletAddress}
+          isAdmin={isAdmin}
+        />
+        <div className="p-8">
+          <div className="flex">
+            <div className="flex-1"></div>
+            <div className="w-full max-w-4xl px-4">
+              <div className="mb-6">
+                <img
+                  className="w-full rounded-none"
+                  alt="dao-image"
+                  src={daoInfo.imageUrl}
+                />
+                <div className="card-body">
+                  <h4 className="text-2xl text-center text-black">
+                    {daoInfo.name}
+                  </h4>
+                  <br />
+                  <p className="text-dark">
+                    <small>Welcome!</small>
+                  </p>
+                  <p className="text-dark">
+                    <small>{daoInfo.description}</small>
+                  </p>
+                  <div className="flex justify-between">
+                    <button
+                      type="button"
+                      className="border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition-colors duration-200 ease-in-out text-sm py-1 px-2"
+                      onClick={() => {
+                        setSelectedNavItem(11);
+                      }}
+                    >
+                      {daoInfo.num_children} subDAOs
+                    </button>
+                    <button
+                      type="button"
+                      className="border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition-colors duration-200 ease-in-out text-sm py-1 px-2"
+                      onClick={() => {
+                        setSelectedNavItem(10);
+                      }}
+                    >
+                      {daoInfo.total_proposals} proposals created
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
+            <div className="flex-1"></div>
           </div>
-        )}
+          <div
+            className="w-3/5 mx-auto"
+          >
+            <div className="mt-10">
+              {transactionInProgress && <LockScreen />}
+              {getHTMLBody()}
+            </div>
+          </div>
+        </div>
       </div>
-      <Popup
-        trigger={popupTrigger}
-        setTrigger={setPopupTrigger}
-        setLockScreen={setTransactionInProgress}
-      >
-        <h2 className="h2 text-black">{alertMessage.title}</h2>
-        <p className="popup-message">{alertMessage.text}</p>
-      </Popup> */}
+    </div>
+  )}
+</div>
+<Popup
+  trigger={popupTrigger}
+  setTrigger={setPopupTrigger}
+  setLockScreen={setTransactionInProgress}
+>
+  <h2 className="text-2xl text-black">{alertMessage.title}</h2>
+  <p className="text-sm">{alertMessage.text}</p>
+</Popup>
+
+
+
     </div>
   );
 }
