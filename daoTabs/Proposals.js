@@ -61,10 +61,7 @@ const Proposals = ({
     console.log(isCollapsed);
 
     let statusIndex = element[index][7];
-    if (
-      statusIndex <= Number.MAX_SAFE_INTEGER &&
-      statusIndex >= Number.MIN_SAFE_INTEGER
-    ) {
+    if (statusIndex <= Number.MAX_SAFE_INTEGER && statusIndex >= Number.MIN_SAFE_INTEGER) {
       statusIndex = Number(statusIndex);
     }
     let statusText = "";
@@ -76,15 +73,10 @@ const Proposals = ({
       statusText = "Pending";
     }
 
-    const votesAsNumbers = element[index][2].map((voteCount) =>
-      Number(voteCount)
-    );
+    const votesAsNumbers = element[index][2].map((voteCount) => Number(voteCount));
     return (
       <>
-        <div
-          key={index}
-          className="col-12 border border-black text-black p-5 mt-5 m-5"
-        >
+        <div key={index} className="col-12 border border-black text-black p-5 mt-5 m-5">
           <div className="row">
             <div className="col-md">
               <label className="h4">{element[index][0]}</label>
@@ -93,28 +85,12 @@ const Proposals = ({
               <br />
             </div>
             <div className="col-md ">
-              <button
-                type="button"
-                className="btn btn-outline-primary float-end"
-                onClick={() => changeCollapse(index)}
-              >
+              <button type="button" className="btn btn-outline-primary float-end" onClick={() => changeCollapse(index)}>
                 Collapse
               </button>
-              {(isAdmin || ykBalance > 0) && (
-                <button onClick={() => onhandleAcceptClick(index)}>
-                  Accept
-                </button>
-              )}
-              {(isAdmin || ykBalance > 0) && (
-                <button onClick={() => onhandleRejectClick(index)}>
-                  Reject
-                </button>
-              )}
-              {(isAdmin || ykBalance > 0) && (
-                <button onClick={() => onhandlePendingClick(index)}>
-                  Pending
-                </button>
-              )}
+              {(isAdmin || ykBalance > 0) && <button onClick={() => onhandleAcceptClick(index)}>Accept</button>}
+              {(isAdmin || ykBalance > 0) && <button onClick={() => onhandleRejectClick(index)}>Reject</button>}
+              {(isAdmin || ykBalance > 0) && <button onClick={() => onhandlePendingClick(index)}>Pending</button>}
             </div>
           </div>
           <div className="row">
@@ -126,11 +102,7 @@ const Proposals = ({
           </div>
           <div className="row">
             <div className="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-              <label>
-                {element[index][4].charAt(0).toUpperCase() +
-                  element[index][4].slice(1)}{" "}
-                proposal
-              </label>
+              <label>{element[index][4].charAt(0).toUpperCase() + element[index][4].slice(1)} proposal</label>
               <br />
               <br />
               <p>Voting Power: {Number(element[index][3])}</p>
@@ -139,13 +111,7 @@ const Proposals = ({
               {element[index][1].map((item, keyIndex) => (
                 <div key={keyIndex}>
                   <label htmlFor="html">
-                    {keyIndex +
-                      1 +
-                      ")  " +
-                      item +
-                      "    (" +
-                      Number(element[index][2][keyIndex]) +
-                      " votes)"}
+                    {keyIndex + 1 + ")  " + item + "    (" + Number(element[index][2][keyIndex]) + " votes)"}
                   </label>
                   <br />
                 </div>
@@ -159,13 +125,7 @@ const Proposals = ({
                     {
                       label: "Votes",
                       data: votesAsNumbers,
-                      backgroundColor: [
-                        "rgba(75,192,192,1)",
-                        "#ecf0f1",
-                        "#50AF95",
-                        "#f3ba2f",
-                        "#2a71d0",
-                      ],
+                      backgroundColor: ["rgba(75,192,192,1)", "#ecf0f1", "#50AF95", "#f3ba2f", "#2a71d0"],
                       borderColor: "black",
                       borderWidth: 1,
                     },
@@ -181,13 +141,7 @@ const Proposals = ({
                     {
                       label: "Votes",
                       data: votesAsNumbers,
-                      backgroundColor: [
-                        "rgba(75,192,192,1)",
-                        "#ecf0f1",
-                        "#50AF95",
-                        "#f3ba2f",
-                        "#2a71d0",
-                      ],
+                      backgroundColor: ["rgba(75,192,192,1)", "#ecf0f1", "#50AF95", "#f3ba2f", "#2a71d0"],
                       borderColor: "black",
                       borderWidth: 1,
                     },
@@ -216,11 +170,7 @@ const Proposals = ({
             <br />
           </div>
           <div className="col-md ">
-            <button
-              type="button"
-              className="btn btn-outline-primary float-end"
-              onClick={() => changeCollapse(index)}
-            >
+            <button type="button" className="btn btn-outline-primary float-end" onClick={() => changeCollapse(index)}>
               Expand
             </button>
           </div>
@@ -241,9 +191,7 @@ const Proposals = ({
   ) : (
     <div>
       {all_proposals.map((element, index) =>
-        isCollapsed[index]
-          ? collapsedProposalCard(element, index)
-          : proposalCard(element, index)
+        isCollapsed[index] ? collapsedProposalCard(element, index) : proposalCard(element, index)
       )}
     </div>
   );

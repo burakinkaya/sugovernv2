@@ -3,8 +3,7 @@ export const FACTORY_JSON = require("./blockchain1/build/contracts/DAOFactory.js
 export const DAO_JSON = require("./blockchain1/build/contracts/MyDAO.json");
 export const TOKEN_JSON = require("./blockchain1/build/contracts/SUToken.json");
 export const LINE_COUNT = 4;
-export const RPC =
-  "https://polygon-mumbai.g.alchemy.com/v2/qk87xs0xeViFziM8xyAckMpVat-e_32T";
+export const RPC = "https://polygon-mumbai.g.alchemy.com/v2/qk87xs0xeViFziM8xyAckMpVat-e_32T";
 export const TOP_DAO = "0x619141AC44a77B126B774a40a966891ca7754937";
 export const SUB_DAOS = [];
 export const daodeployerWallet = "0x8ca0b191825f09252117932a23331f40b1bde09c";
@@ -13,9 +12,7 @@ export const params = [
     chainName: "Mumbai Testnet",
     chainId: "0x13881",
     nativeCurrency: { name: "MATIC", decimals: 18, symbol: "MATIC" },
-    rpcUrls: [
-      "https://polygon-mumbai.g.alchemy.com/v2/qk87xs0xeViFziM8xyAckMpVat-e_32T",
-    ],
+    rpcUrls: ["https://polygon-mumbai.g.alchemy.com/v2/qk87xs0xeViFziM8xyAckMpVat-e_32T"],
     blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
   },
 ];

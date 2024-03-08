@@ -50,9 +50,7 @@ export default function Home() {
   const [alertMessage, setAlertMessage] = useState({ text: "", title: "" }); //this is used inside Popup component, to pass a message to the inside of the popup when an error occurs, or a transaction is successful, or in a case of warning
   const [popupTrigger, setPopupTrigger] = useState(false); //this is used inside Popup component, to trigger the popup to show up
 
-  const [daoFactoryContract, setDaoFactoryContract] = useState<
-    Contract<any> | undefined
-  >(undefined);
+  const [daoFactoryContract, setDaoFactoryContract] = useState<Contract<any> | undefined>(undefined);
 
   //to store the DAOFactory contract instance
   const [daos, setDaos] = useState<Dao[]>([]); // Initialize with an empty array of Dao objects  //to store all the DAOs created by the DAOFactory contract

@@ -21,12 +21,7 @@ const TextBoxDescription = styled.div`
   font-size: 1em;
 `;
 
-const VoteOnProposals = ({
-  onGetAllProposals,
-  onVoteOnNormalProposals,
-  onVoteOnWeightedProposals,
-  _voterBalance,
-}) => {
+const VoteOnProposals = ({ onGetAllProposals, onVoteOnNormalProposals, onVoteOnWeightedProposals, _voterBalance }) => {
   const [all_props, setall_props] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [amountOfVoterTokens, setamountOfVoterTokens] = useState(0);
@@ -87,22 +82,16 @@ const VoteOnProposals = ({
         <div className="container">
           <div className="row mt-5">
             <div className="text-center">
-              <label className="text-black">There is no proposal</label>
+              <label className="text-white">There is no proposal</label>
             </div>
           </div>
         </div>
       ) : (
         [0, 1, 2].map((i) => (
-          <div
-            key={i}
-            className="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-black"
-          >
+          <div key={i} className="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-white">
             {all_props.map((element, index) =>
               index % 3 === i ? (
-                <div
-                  key={index}
-                  className="card bg-white border border-black text-black p-5 my-2"
-                >
+                <div key={index} className="card bg-white border border-white text-white p-5 my-2">
                   <TextBoxProposal>{element[index][0]}</TextBoxProposal>
                   <br />
                   <TextBoxDescription>{element[index][6]}</TextBoxDescription>
@@ -122,14 +111,10 @@ const VoteOnProposals = ({
                             <button
                               type="button"
                               className="btn btn-danger rounded-0"
-                              disabled={
-                                element[index][5] === true ||
-                                currAmountOfVotes[index][indx2] === 0
-                              }
+                              disabled={element[index][5] === true || currAmountOfVotes[index][indx2] === 0}
                               onClick={() => {
                                 let selCopy = [...currAmountOfVotes];
-                                selCopy[index][indx2] =
-                                  selCopy[index][indx2] - 1;
+                                selCopy[index][indx2] = selCopy[index][indx2] - 1;
                                 setcurrAmountOfVotes(selCopy);
                               }}
                             >
@@ -143,7 +128,7 @@ const VoteOnProposals = ({
                             style={{
                               width: "50px",
                               color: "white",
-                              backgroundColor: "black",
+                              backgroundColor: "white",
                             }}
                             id="html"
                             name="fav_language"
@@ -155,14 +140,12 @@ const VoteOnProposals = ({
                               className="btn btn-primary rounded-0"
                               disabled={
                                 element[index][5] === true ||
-                                getTotalCount(currAmountOfVotes[index]) ==
-                                  element[index][3] ||
+                                getTotalCount(currAmountOfVotes[index]) == element[index][3] ||
                                 amountOfVoterTokens <= 0
                               }
                               onClick={() => {
                                 let selCopy = [...currAmountOfVotes];
-                                selCopy[index][indx2] =
-                                  selCopy[index][indx2] + 1;
+                                selCopy[index][indx2] = selCopy[index][indx2] + 1;
                                 setcurrAmountOfVotes(selCopy);
                               }}
                             >
@@ -186,10 +169,7 @@ const VoteOnProposals = ({
                             <button
                               type="button"
                               className="btn btn-danger rounded-0"
-                              disabled={
-                                element[index][5] === true ||
-                                weights[index] === 0
-                              }
+                              disabled={element[index][5] === true || weights[index] === 0}
                               onClick={() => {
                                 let selCopy = [...weights];
                                 selCopy[index] = selCopy[index] - 1;
@@ -206,7 +186,7 @@ const VoteOnProposals = ({
                             style={{
                               width: "50px",
                               color: "white",
-                              backgroundColor: "black",
+                              backgroundColor: "white",
                             }}
                             id="html"
                             name="fav_language"
@@ -239,19 +219,13 @@ const VoteOnProposals = ({
                   )}
                   <br />
                   <TextBoxDescription>
-                    {element[index][4].charAt(0).toUpperCase() +
-                      element[index][4].slice(1) +
-                      " proposal"}
+                    {element[index][4].charAt(0).toUpperCase() + element[index][4].slice(1) + " proposal"}
                   </TextBoxDescription>
                   <br />
                   {element[index][5] === true ? (
-                    <label className="h6">
-                      You have already voted on this proposal
-                    </label>
+                    <label className="h6">You have already voted on this proposal</label>
                   ) : (
-                    <label className="h6">
-                      Total Votes: {getTotalCount(currAmountOfVotes[index])}
-                    </label>
+                    <label className="h6">Total Votes: {getTotalCount(currAmountOfVotes[index])}</label>
                   )}
                   <br />
                   <button
@@ -260,11 +234,7 @@ const VoteOnProposals = ({
                     className="btn btn-primary btn-block"
                     onClick={() => {
                       element[index][4] === "normal"
-                        ? onVoteOnNormalProposals(
-                            index.toString(),
-                            element[index][1],
-                            currAmountOfVotes[index]
-                          )
+                        ? onVoteOnNormalProposals(index.toString(), element[index][1], currAmountOfVotes[index])
                         : onVoteOnWeightedProposals(
                             index.toString(),
                             element[index][1],

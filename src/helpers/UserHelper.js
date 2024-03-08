@@ -19,9 +19,7 @@ async function NetworkControl() {
               chainName: "Mumbai Testnet",
               chainId: "0x13881",
               nativeCurrency: { name: "MATIC", decimals: 18, symbol: "MATIC" },
-              rpcUrls: [
-                "https://polygon-mumbai.g.alchemy.com/v2/qk87xs0xeViFziM8xyAckMpVat-e_32T",
-              ],
+              rpcUrls: ["https://polygon-mumbai.g.alchemy.com/v2/qk87xs0xeViFziM8xyAckMpVat-e_32T"],
               blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
             },
           ],
@@ -86,10 +84,7 @@ async function WalletConnect() {
 
 async function DaoIsExist(address) {
   const web3 = new Web3(window.ethereum);
-  const factoryContract = new web3.eth.Contract(
-    FACTORY_JSON["abi"],
-    DAO_ADDRESS
-  );
+  const factoryContract = new web3.eth.Contract(FACTORY_JSON["abi"], DAO_ADDRESS);
   let retVal = false;
   await factoryContract.methods
     .dao_exists(address)
@@ -197,12 +192,4 @@ async function DaoInfo(contract, address) {
 
   return retVal;
 }
-export {
-  WalletConnect,
-  DaoIsExist,
-  BindContract,
-  fetchNextDaoId,
-  fetchAllDaos,
-  DaoInfo,
-  NetworkControl,
-};
+export { WalletConnect, DaoIsExist, BindContract, fetchNextDaoId, fetchAllDaos, DaoInfo, NetworkControl };

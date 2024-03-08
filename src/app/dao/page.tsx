@@ -23,20 +23,8 @@ import Header from "../../components/Header";
 import Sidebar from "../../components/SideBar";
 import LockScreen from "../../components/LockScreen";
 import TransferTokens from "../../../daoTabs/TransferTokens";
-import {
-  DAO_JSON,
-  TOKEN_JSON,
-  FACTORY_JSON,
-  DAO_ADDRESS,
-  RPC,
-} from "../../../constant";
-import {
-  BindContract,
-  DaoInfo,
-  DaoIsExist,
-  NetworkControl,
-  WalletConnect,
-} from "@/helpers/UserHelper";
+import { DAO_JSON, TOKEN_JSON, FACTORY_JSON, DAO_ADDRESS, RPC } from "../../../constant";
+import { BindContract, DaoInfo, DaoIsExist, NetworkControl, WalletConnect } from "@/helpers/UserHelper";
 import { init } from "../../helpers/Inıt";
 import Image from "next/image";
 import dummyPhoto from "../../../public/dummyphoto.svg";
@@ -89,21 +77,16 @@ export default function Dao() {
   }
 
   useEffect(() => {
-    WalletConnect().then((res) => {
-      setWalletAddress(res);
-      console.log("account is ", res);
-    });
+    WalletConnect().then(setWalletAddress);
+  }, []);
+
+  useEffect(() => {
     const checkIsAdmin = async (address: string): Promise<void> => {
       // YK ayrıcalıklarını kontrol etmek için DAO kontratı kullanılıyor
       if (contracts.daoContract && address) {
         try {
-          const hasPriviliges: boolean = await (
-            contracts.daoContract as any
-          ).methods
-            .has_yk_priviliges(address)
-            .call();
+          const hasPriviliges: boolean = await (contracts.daoContract as any).methods.has_yk_priviliges(address).call();
           setIsAdmin(hasPriviliges);
-          console.log("priviliges is ", hasPriviliges);
         } catch (error) {
           console.error("Error checking YK privileges:", error);
         }
@@ -114,10 +97,7 @@ export default function Dao() {
       if (!contracts["daoFactoryContract"]) {
         setContracts((prevState) => ({
           ...prevState,
-          daoFactoryContract: BindContract(
-            FACTORY_JSON["abi"],
-            DAO_ADDRESS
-          ) as any,
+          daoFactoryContract: BindContract(FACTORY_JSON["abi"], DAO_ADDRESS) as any,
         }));
       } else {
         if (!contracts["daoContract"]) {
@@ -139,9 +119,7 @@ export default function Dao() {
                   num_children: result,
                 }))
               )
-              .catch((err: any) =>
-                setAlertMessage({ text: err, title: "Error" })
-              );
+              .catch((err: any) => setAlertMessage({ text: err, title: "Error" }));
           });
         } else {
           if (!initialized) {
@@ -154,9 +132,7 @@ export default function Dao() {
                   name: result,
                 }))
               )
-              .catch((err: any) =>
-                setAlertMessage({ text: err, title: "Error" })
-              );
+              .catch((err: any) => setAlertMessage({ text: err, title: "Error" }));
             (contracts["daoContract"] as any).methods
               .dao_description()
               .call()
@@ -166,9 +142,7 @@ export default function Dao() {
                   description: result,
                 }))
               )
-              .catch((err: any) =>
-                setAlertMessage({ text: err, title: "Error" })
-              );
+              .catch((err: any) => setAlertMessage({ text: err, title: "Error" }));
             (contracts["daoContract"] as any).methods
               .imageUrl()
               .call()
@@ -178,9 +152,7 @@ export default function Dao() {
                   imageUrl: result,
                 }))
               )
-              .catch((err: any) =>
-                setAlertMessage({ text: err, title: "Error" })
-              );
+              .catch((err: any) => setAlertMessage({ text: err, title: "Error" }));
             (contracts["daoContract"] as any).methods
               .getProposalName()
               .call()
@@ -190,9 +162,7 @@ export default function Dao() {
                   total_proposals: result.length,
                 }))
               )
-              .catch((err: any) =>
-                setAlertMessage({ text: err, title: "Error" })
-              );
+              .catch((err: any) => setAlertMessage({ text: err, title: "Error" }));
             (contracts["daoContract"] as any).methods
               .yk_token()
               .call()
@@ -202,9 +172,7 @@ export default function Dao() {
                   ykTokenContract: BindContract(TOKEN_JSON["abi"], result),
                 }))
               )
-              .catch((err: Error) =>
-                setAlertMessage({ text: err.message, title: "Error" })
-              );
+              .catch((err: Error) => setAlertMessage({ text: err.message, title: "Error" }));
 
             (contracts["daoContract"] as any).methods
               .voter_token()
@@ -215,14 +183,8 @@ export default function Dao() {
                   voterTokenContract: BindContract(TOKEN_JSON["abi"], result),
                 }))
               )
-              .catch((err: any) =>
-                setAlertMessage({ text: err, title: "Error" })
-              );
-            if (
-              contracts["voterTokenContract"] &&
-              contracts["ykTokenContract"] &&
-              walletAddress
-            ) {
+              .catch((err: any) => setAlertMessage({ text: err, title: "Error" }));
+            if (contracts["voterTokenContract"] && contracts["ykTokenContract"] && walletAddress) {
               contracts["ykTokenContract"].methods
                 .balanceOf(String(walletAddress))
                 .call()
@@ -242,13 +204,12 @@ export default function Dao() {
                   const balance = parseInt(result) / Math.pow(10, 18);
                   setVoterBalance(balance);
                 })
-                .catch((err: any) =>
-                  setAlertMessage({ text: err, title: "Error" })
-                );
+                .catch((err: any) => setAlertMessage({ text: err, title: "Error" }));
             }
           }
-          if (typeof address === "string") {
-            checkIsAdmin(address);
+          if (typeof walletAddress === "string") {
+            checkIsAdmin(walletAddress);
+            initialize();
           }
         }
       }
@@ -259,7 +220,8 @@ export default function Dao() {
         setInitialized(true);
       }
     }
-  }, [address, contracts, initialized, walletAddress]);
+    console.log("useeffect count");
+  }, [walletAddress, contracts]);
 
   //address_given is the address of the DAO
   //this function is used to get the name of the DAO
@@ -319,13 +281,7 @@ export default function Dao() {
   //create new proposal, passed into CreateProposal.js tab
   //name is the name of the proposal, description is the description of the proposal, vote is an array of strings (options), power is the voting power of the proposal, type is the type of the proposal (weighted or normal)
   //calling this function requires the user to be a YK, but we handle the error if the user is not a YK
-  const createNewProposal = async (
-    name: any,
-    description: any,
-    vote: any,
-    power: any,
-    type: any
-  ) => {
+  const createNewProposal = async (name: any, description: any, vote: any, power: any, type: any) => {
     if (!initialized) {
       await init();
     }
@@ -342,14 +298,7 @@ export default function Dao() {
 
     setTransactionInProgress(true); //set the transactionInProgress to true, activate the screenlock component, so that the user cannot send another transaction while the current transaction is in progress
     await contracts.daoContract.methods
-      .createProposal(
-        String(name),
-        String(description),
-        vote,
-        initial_votes,
-        parseInt(power),
-        parseInt(type)
-      )
+      .createProposal(String(name), String(description), vote, initial_votes, parseInt(power), parseInt(type))
       .send({
         from: walletAddress,
       })
@@ -420,12 +369,7 @@ export default function Dao() {
   //vote on a weighted proposal, passed into VoteOnProposals.js tab
   //votes are multiplied by the amount of voter tokens that user has
   //id is the id of the proposal, vote is an array of strings (options), vote_power is an array of integers (voting power distribution), weight is the amount of voter tokens that user wants to use (at max the amount of tokens that user has)
-  const voteOnWeightedProposal = async (
-    id: any,
-    vote: any,
-    vote_power: any,
-    weight: any
-  ) => {
+  const voteOnWeightedProposal = async (id: any, vote: any, vote_power: any, weight: any) => {
     parseInt(weight);
 
     vote.forEach((element: any) => {
@@ -458,9 +402,7 @@ export default function Dao() {
     let proposalNames: string[];
 
     try {
-      const result = await contracts.daoContract.methods
-        .getProposalName()
-        .call();
+      const result = await contracts.daoContract.methods.getProposalName().call();
       proposalNames = result;
     } catch (err: any) {
       setAlertMessage({ text: err.toString(), title: "Error" });
@@ -539,25 +481,19 @@ export default function Dao() {
   // Function to accept a proposal
   async function acceptProposal(daoAddress: any, proposalId: any) {
     const contract = BindContract(DAO_JSON.abi, daoAddress);
-    return contract.methods
-      .accept_proposal(proposalId)
-      .send({ from: walletAddress });
+    return contract.methods.accept_proposal(proposalId).send({ from: walletAddress });
   }
 
   // Function to reject a proposal
   async function rejectProposal(daoAddress: any, proposalId: any) {
     const contract = BindContract(DAO_JSON.abi, daoAddress);
-    return contract.methods
-      .reject_proposal(proposalId)
-      .send({ from: walletAddress });
+    return contract.methods.reject_proposal(proposalId).send({ from: walletAddress });
   }
 
   // Function to set a proposal to pending
   async function pendingProposal(daoAddress: any, proposalId: any) {
     const contract = BindContract(DAO_JSON.abi, daoAddress);
-    return contract.methods
-      .pending_proposal(proposalId)
-      .send({ from: walletAddress });
+    return contract.methods.pending_proposal(proposalId).send({ from: walletAddress });
   }
 
   const handleAcceptClick = async (proposalId: any) => {
@@ -608,10 +544,7 @@ export default function Dao() {
   const sendVoterTokens = async (address: any, amount: any) => {
     setTransactionInProgress(true);
     await contracts.daoContract.methods
-      .send_voter_tokens_to_address_yk_directly(
-        String(address),
-        parseInt(amount)
-      )
+      .send_voter_tokens_to_address_yk_directly(String(address), parseInt(amount))
       .send({ from: walletAddress })
       .then(() => {
         setAlertMessage({ text: "Successfully sent tokens", title: "Success" });
@@ -799,34 +732,46 @@ export default function Dao() {
   };
 
   //get the number of YK tokens that the user can withdraw from the DAO
-  const getYKSharesToBeGiven = async () => {
+  const getYKSharesToBeGiven = async (): Promise<number> => {
     if (!initialized) {
       await init();
     }
-    let shares;
+    let shares = 0; // Initialize shares with a default value
     await contracts.daoContract.methods
       .yk_shares_to_be_given(String(walletAddress))
       .call()
       .then((result: any) => {
-        shares = parseFloat(result) / Math.pow(10, 18);
+        const parsedShares = parseFloat(result) / Math.pow(10, 18);
+        if (!isNaN(parsedShares)) {
+          shares = parsedShares; // Update shares only if parsed value is a valid number
+        }
       })
-      .catch((err: any) => setAlertMessage({ text: err, title: "Error" }));
+      .catch((err: any) => {
+        console.error(err); // Log or handle the error as appropriate
+        setAlertMessage({ text: err.message || "An error occurred", title: "Error" });
+      });
     return shares;
   };
 
   //get the number of voter tokens that the user can withdraw from the DAO
-  const getVoterSharesToBeGiven = async () => {
+  const getVoterSharesToBeGiven = async (): Promise<number> => {
     if (!initialized) {
       await init();
     }
-    let shares;
+    let shares = 0; // Initialize shares with a default value
     await contracts.daoContract.methods
       .voter_shares_to_be_given(String(walletAddress))
       .call()
       .then((result: any) => {
-        shares = parseFloat(result) / Math.pow(10, 18);
+        const parsedShares = parseFloat(result) / Math.pow(10, 18);
+        if (!isNaN(parsedShares)) {
+          shares = parsedShares; // Update shares only if parsed value is a valid number
+        }
       })
-      .catch((err: any) => setAlertMessage({ text: err, title: "Error" }));
+      .catch((err: any) => {
+        console.error(err); // Log or handle the error as appropriate
+        setAlertMessage({ text: err.message || "An error occurred", title: "Error" });
+      });
     return shares;
   };
 
@@ -956,20 +901,14 @@ export default function Dao() {
   };
   //delegate = transfer back, there is a misnamed function in the smart contract
   //transfer back a specific amount of YK tokens from a specific delegate to your wallet
-  const delegateSomeFromAddressYK = async (
-    address_wallet: any,
-    amount_token: any
-  ) => {
+  const delegateSomeFromAddressYK = async (address_wallet: any, amount_token: any) => {
     if (!initialized) {
       await init();
     }
     let zero = "0";
     setTransactionInProgress(true);
     await contracts.daoContract.methods
-      .dao_delegation_single_getback_amount_yk(
-        String(address_wallet),
-        String(amount_token + zero.repeat(18))
-      )
+      .dao_delegation_single_getback_amount_yk(String(address_wallet), String(amount_token + zero.repeat(18)))
       .send({
         from: walletAddress,
       })
@@ -984,20 +923,14 @@ export default function Dao() {
   };
   //delegate = transfer back, there is a misnamed function in the smart contract
   //transfer back a specific amount of voter tokens from a specific delegate to your wallet
-  const delegateSomeFromAddressVoter = async (
-    address_wallet: any,
-    amount_token: any
-  ) => {
+  const delegateSomeFromAddressVoter = async (address_wallet: any, amount_token: any) => {
     if (!initialized) {
       await init();
     }
     let zero = "0";
     setTransactionInProgress(true);
     await contracts.daoContract.methods
-      .dao_delegation_single_getback_amount_voter(
-        String(address_wallet),
-        String(amount_token + zero.repeat(18))
-      )
+      .dao_delegation_single_getback_amount_voter(String(address_wallet), String(amount_token + zero.repeat(18)))
       .send({
         from: walletAddress,
       })
@@ -1116,10 +1049,7 @@ export default function Dao() {
     ) : selectedNavItem === 5 ? (
       <DeleteDAO onDeleteDAO={deleteThisDAO}></DeleteDAO>
     ) : selectedNavItem === 6 ? (
-      <CheckMyTokens
-        _ykBalance={ykBalance}
-        _voterBalance={voterBalance}
-      ></CheckMyTokens>
+      <CheckMyTokens _ykBalance={ykBalance} _voterBalance={voterBalance}></CheckMyTokens>
     ) : selectedNavItem === 7 ? (
       <WithdrawTokens
         onWithdrawVoterTokens={withdrawVoterTokens}
@@ -1173,7 +1103,6 @@ export default function Dao() {
   };
 
   if (!walletAddress) {
-    // User has not connected their wallet yet
     return (
       <div>
         <p>Please connect your wallet to interact with the DAO.</p>
@@ -1183,7 +1112,7 @@ export default function Dao() {
 
   return (
     <div className="w-full h-full bg-[#16141D]">
-      <div className="relative w-full h-[375px] bg-black bg-transparent">
+      <div className="relative w-full h-[200px] bg-black bg-transparent">
         <Image
           src={dummyPhoto}
           alt="Sabanci University"
@@ -1193,13 +1122,7 @@ export default function Dao() {
         />
         <div className="absolute top-0 left-1/4 right-0 bottom-0 flex justify-between items-center px-16">
           <div className="flex items-center gap-8">
-            <Image
-              src={sabanciLogo}
-              alt="Sabanci University Logo"
-              width={350}
-              height={150}
-              objectFit="contain"
-            />
+            <Image src={sabanciLogo} alt="Sabanci University Logo" width={350} height={150} objectFit="contain" />
             <div className="text-white text-center w-[300px]">
               <h1 className="text-4xl font-bold">{daoInfo.name}</h1>
               <p className="text-xl text-[#D7D7D7]">{daoInfo.description}</p>
@@ -1220,98 +1143,22 @@ export default function Dao() {
           </div>
         </div>
       </div>
-
-      {/* <div style={{ minHeight: "100vh" }}>
-        {!initialized ? (
-          <Spinner></Spinner>
-        ) : (
-          <div className="row mx-0">
-            <div className="bg-green-500">
-              <Sidebar
-                setSelectedNavItem={setSelectedNavItem}
-                selectedNavItem={selectedNavItem}
-                status={"admin"}
-                ykBalance={ykBalance}
-                voterBalance={voterBalance}
-                walletAddress={walletAddress}
-                isAdmin={isAdmin}
-              />
-              <div style={{ padding: "30px" }}>
-                <div className="row">
-                  <div className="col-xl-4 col-lg-3 col-md-2 col-sm-1 col-xs-1"></div>
-                  <div className="col-xl-4 col-lg-6 col-md-8 col-sm-10 col-xs-10">
-                    <div className="card mb-3">
-                      <img
-                        className="card-img-top rounded-0"
-                        alt="dao-image"
-                        src={daoInfo.imageUrl}
-                      />
-                       
-                      <div className="card-body">
-                        <h4 className="h4 card-title text-center text-black">
-                          {daoInfo.name}
-                        </h4>
-                        <br />
-                        <p className="card-text">
-                          <small className="text-dark">Welcome!</small>
-                        </p>
-                        <p className="card-text">
-                          <small className="text-dark">
-                            {daoInfo.description}
-                          </small>
-                        </p>
-                        <div className="d-flex justify-content-between">
-                          <button
-                            type="button"
-                            className="btn btn-outline-primary"
-                            onClick={() => {
-                              setSelectedNavItem(11);
-                            }}
-                            style={{ margin: 2, padding: 2 }}
-                          >
-                            {daoInfo.num_children} subDAOs
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-outline-primary"
-                            onClick={() => {
-                              setSelectedNavItem(10);
-                            }}
-                            style={{ margin: 5, padding: 2 }}
-                          >
-                            {daoInfo.total_proposals} proposals created
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-xl-4 col-lg-3 col-md-2 col-sm-1 col-xs-1"></div>
-                </div>
-                <div
-                  style={{
-                    width: "60vw",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                  }}
-                >
-                  <div className="row mt-5">
-                    {transactionInProgress ? <LockScreen></LockScreen> : <></>}
-                    {getHTMLBody()}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+      <div className="fixed top-0 left-32 h-screen w-64 bg-[#281C2C] bg-opacity-80 p-4 z-50">
+        <Sidebar
+          setSelectedNavItem={setSelectedNavItem}
+          selectedNavItem={selectedNavItem}
+          status="admin"
+          ykBalance={ykBalance}
+          voterBalance={voterBalance}
+          walletAddress={walletAddress}
+          isAdmin={isAdmin}
+        />
       </div>
-      <Popup
-        trigger={popupTrigger}
-        setTrigger={setPopupTrigger}
-        setLockScreen={setTransactionInProgress}
-      >
+      <div className="ml-[400px] mt-[50px] p-4 flex-grow">{getHTMLBody()}</div>
+      <Popup trigger={popupTrigger} setTrigger={setPopupTrigger} setLockScreen={setTransactionInProgress}>
         <h2 className="h2 text-black">{alertMessage.title}</h2>
         <p className="popup-message">{alertMessage.text}</p>
-      </Popup> */}
+      </Popup>
     </div>
   );
 }
