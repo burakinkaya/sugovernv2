@@ -16,37 +16,45 @@ const CreateProposal: React.FC<CreateProposalProps> = ({ onCreateProposal }) => 
 
   return (
     <>
-      <div className="col-span-2"></div>
-      <div className="col-span-8 border border-dark text-white p-5">
-        <h2 className="title text-white">
-          <u>CREATE NEW PROPOSAL</u>
-        </h2>
-        <form>
-          <label>Proposal Title: </label>
+      <div className="container mx-auto border border-gray-200 p-4 rounded-lg bg-white shadow-lg mt-5">
+        <h3 className="text-2xl text-center font-semibold text-gray-800">Create New Proposal</h3>
+        <br />
+        <br />
+        <form className="mt-8 space-y-6">
+          <div className="form-group">
+            <div className="flex flex-col">
+              <label htmlFor="proposalTitle" className="block text-sm font-medium text-gray-700">
+                Proposal Title
+              </label>
+              <input
+                type="text"
+                id="proposalTitle"
+                className="rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-black rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Enter Proposal Title"
+                onChange={(e) => {
+                  proposal.current.text = e.target.value;
+                }}
+              />
+            </div>
+          </div>
           <br />
-          <textarea
-            className="text-black"
-            onChange={(e) => {
-              proposal.current.text = e.target.value;
-            }}
-            style={{ width: "80%", padding: "5px" }}
-          />
-          <br />
-          <br />
-          <label>Proposal Description: </label>
-          <br />
-          <textarea
-            className="text-black"
-            onChange={(e) => {
-              proposal.current.desc = e.target.value;
-            }}
-            style={{ width: "80%", padding: "5px" }}
-          />
-          <br />
+          <div className="form-group">
+            <label htmlFor="proposalDescription" className="block text-sm font-medium text-gray-700">
+              Proposal Description
+            </label>
+            <textarea
+              id="proposalDescription"
+              className="rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-black rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="Enter Proposal Description"
+              onChange={(e) => {
+                proposal.current.desc = e.target.value;
+              }}
+            />
+          </div>
           <br />
           <button
             type="button"
-            className="btn btn-secondary rounded-0"
+            className="group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             onClick={() => {
               proposal.current.options.push("");
               setInputList([
@@ -55,7 +63,7 @@ const CreateProposal: React.FC<CreateProposalProps> = ({ onCreateProposal }) => 
                   <br />
                   <label>Option {inputList.length + 1}: </label>
                   <input
-                    className="text-black"
+                    className="rounded-md appearance-none relative block px-3 border border-gray-300 placeholder-gray-500 text-black rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     required
                     onChange={(e) => {
                       proposal.current.options[inputList.length] = e.target.value;
@@ -74,7 +82,7 @@ const CreateProposal: React.FC<CreateProposalProps> = ({ onCreateProposal }) => 
           ) : (
             <button
               type="button"
-              className="btn btn-danger rounded-0"
+              className="group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               onClick={() => {
                 proposal.current.options.pop();
                 setInputList(inputList.slice(0, -1));
@@ -85,10 +93,11 @@ const CreateProposal: React.FC<CreateProposalProps> = ({ onCreateProposal }) => 
           )}
           <br />
           <br />
-          <label>Voting Power: </label>
+          <label className="block text-sm font-medium text-gray-700">Voting Power: </label>
           <input
-            className="text-black"
+            className="rounded-md appearance-none relative block px-3 border border-gray-300 placeholder-gray-500 text-black rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             type="number"
+            placeholder="Enter Voting Power"
             onChange={(e) => {
               proposal.current.voting_power = Number(e.target.value);
             }}
@@ -112,7 +121,7 @@ const CreateProposal: React.FC<CreateProposalProps> = ({ onCreateProposal }) => 
           <br />
           <button
             type="button"
-            className="btn btn-primary rounded-0"
+            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             onClick={() => {
               onCreateProposal(
                 proposal.current.text,

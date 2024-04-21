@@ -27,8 +27,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/helpers/UserHelper.js",
-    "constant.js",
-    "daoTabs/VoteOnProposals.js"
+    "constant.ts",
+    "daoTabs/VoteOnProposals.tsx"
   ],
   "exclude": ["node_modules"]
 }

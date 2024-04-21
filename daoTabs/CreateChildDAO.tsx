@@ -36,7 +36,7 @@ const CreateChildDAO: React.FC<CreateChildDAOProps> = ({ onCreateChildDAO }) => 
           <input
             type="text"
             id="daoName"
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            className="rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-black rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             placeholder="Enter DAO Name"
             onChange={(e) => {
               daoInfo.current = { ...daoInfo.current, name: e.target.value };
@@ -51,7 +51,7 @@ const CreateChildDAO: React.FC<CreateChildDAOProps> = ({ onCreateChildDAO }) => 
           <input
             type="text"
             id="daoDescription"
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            className="rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-black rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             placeholder="Enter DAO Description"
             onChange={(e) => {
               daoInfo.current = { ...daoInfo.current, desc: e.target.value };
@@ -66,7 +66,7 @@ const CreateChildDAO: React.FC<CreateChildDAOProps> = ({ onCreateChildDAO }) => 
           <input
             type="text"
             id="daoImage"
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-black rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             placeholder="Enter DAO Image URL"
             onChange={(e) => {
               daoInfo.current = { ...daoInfo.current, image: e.target.value };
@@ -81,7 +81,7 @@ const CreateChildDAO: React.FC<CreateChildDAOProps> = ({ onCreateChildDAO }) => 
           <input
             type="text"
             id="ykToken"
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            className="appearance-none rounded-md  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-black rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             placeholder="Enter YK Token Name"
             onChange={(e) => {
               daoInfo.current = { ...daoInfo.current, YKTokenName: e.target.value };
@@ -96,7 +96,7 @@ const CreateChildDAO: React.FC<CreateChildDAOProps> = ({ onCreateChildDAO }) => 
           <input
             type="text"
             id="ykSymbol"
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-black rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             placeholder="Enter YK Token Symbol"
             onChange={(e) => {
               daoInfo.current = { ...daoInfo.current, YKTokenSymbol: e.target.value };
@@ -111,7 +111,7 @@ const CreateChildDAO: React.FC<CreateChildDAOProps> = ({ onCreateChildDAO }) => 
           <input
             type="text"
             id="voterToken"
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-black rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             placeholder="Enter Voter Token Name"
             onChange={(e) => {
               daoInfo.current = { ...daoInfo.current, voterTokenName: e.target.value };
@@ -126,7 +126,7 @@ const CreateChildDAO: React.FC<CreateChildDAOProps> = ({ onCreateChildDAO }) => 
           <input
             type="text"
             id="voterSymbol"
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-black rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             placeholder="Enter Voter Token Symbol"
             onChange={(e) => {
               daoInfo.current = { ...daoInfo.current, voterTokenSymbol: e.target.value };

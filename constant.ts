@@ -1,19 +1,19 @@
-export const DAO_ADDRESS = "0x32659e469f74e65A7C3fcAea1fcA56042Cedff44";
+export const DAO_ADDRESS = "0xc81272b02750ef06f22908ff50dd2c95be4baacf";
 export const FACTORY_JSON = require("./blockchain1/build/contracts/DAOFactory.json");
 export const DAO_JSON = require("./blockchain1/build/contracts/MyDAO.json");
 export const TOKEN_JSON = require("./blockchain1/build/contracts/SUToken.json");
 export const LINE_COUNT = 4;
-export const RPC = "https://polygon-mumbai.g.alchemy.com/v2/qk87xs0xeViFziM8xyAckMpVat-e_32T";
-export const TOP_DAO = "0x619141AC44a77B126B774a40a966891ca7754937";
+export const RPC = "https://polygon-amoy.g.alchemy.com/v2/sKY-3irlCflk8GD0bZFMjAicdwR8ngNe";
+export const TOP_DAO = "0xEf137c67a9f967b8015d893a8590A1c994BabbaE";
 export const SUB_DAOS = [];
 export const daodeployerWallet = "0x8ca0b191825f09252117932a23331f40b1bde09c";
 export const params = [
   {
-    chainName: "Mumbai Testnet",
-    chainId: "0x13881",
+    chainName: "Amoy Testnet",
+    chainId: "0x13882",
     nativeCurrency: { name: "MATIC", decimals: 18, symbol: "MATIC" },
-    rpcUrls: ["https://polygon-mumbai.g.alchemy.com/v2/qk87xs0xeViFziM8xyAckMpVat-e_32T"],
-    blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+    rpcUrls: ["https://polygon-amoy.g.alchemy.com/v2/sKY-3irlCflk8GD0bZFMjAicdwR8ngNe"],
+    blockExplorerUrls: ["https://amoy.polygonscan.com/"],
   },
 ];
 export const CHAIN_ID = 8001;

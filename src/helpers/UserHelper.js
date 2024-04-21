@@ -1,5 +1,6 @@
 import Web3 from "web3";
 import { DAO_ADDRESS, DAO_JSON, FACTORY_JSON, params } from "../../constant";
+import { toast } from "react-toastify";
 
 async function NetworkControl() {
   const chainId = 80001;
@@ -7,7 +8,7 @@ async function NetworkControl() {
     try {
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x13881" }],
+        params: [{ chainId: "0x13882" }],
       });
     } catch (err) {
       // This error code indicates that the chain has not been added to MetaMask
@@ -16,11 +17,11 @@ async function NetworkControl() {
           method: "wallet_addEthereumChain",
           params: [
             {
-              chainName: "Mumbai Testnet",
-              chainId: "0x13881",
+              chainName: "Amoy Testnet",
+              chainId: "0x13882",
               nativeCurrency: { name: "MATIC", decimals: 18, symbol: "MATIC" },
-              rpcUrls: ["https://polygon-mumbai.g.alchemy.com/v2/qk87xs0xeViFziM8xyAckMpVat-e_32T"],
-              blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+              rpcUrls: ["https://polygon-amoy.g.alchemy.com/v2/sKY-3irlCflk8GD0bZFMjAicdwR8ngNe"],
+              blockExplorerUrls: ["https://amoy.polygonscan.com/"],
             },
           ],
         });
@@ -92,7 +93,7 @@ async function DaoIsExist(address) {
     .then((result) => {
       retVal = result;
     })
-    .catch((err) => alert(err));
+    .catch((err) => toast.error(err.toString()));
   return retVal;
 }
 

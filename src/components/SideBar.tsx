@@ -83,6 +83,16 @@ const Sidebar: React.FC<SidebarProps> = ({
           <h2 className="px-4 py-2 text-lg font-semibold text-[#973B82]">Member Functions</h2>
           <ul className="flex flex-col">
             <li className="nav-item">
+              <p className={`nav-link px-4 py-2 cursor-pointer ${isActive(10)}`} onClick={() => setSelectedNavItem(10)}>
+                DAO Page
+              </p>
+            </li>
+            <li className="nav-item">
+              <p className={`nav-link px-4 py-2 cursor-pointer ${isActive(11)}`} onClick={() => setSelectedNavItem(11)}>
+                DAO Hierarchy
+              </p>
+            </li>
+            <li className="nav-item">
               <p className={`nav-link px-4 py-2 cursor-pointer ${isActive(9)}`} onClick={() => setSelectedNavItem(9)}>
                 Vote on Proposals
               </p>

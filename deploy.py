@@ -3,7 +3,7 @@ import json
 from web3.middleware import geth_poa_middleware
 
 # set up web3 provider
-w3 = Web3(Web3.HTTPProvider("https://polygon-mumbai-pokt.nodies.app/"))  # replace with your provider URL
+w3 = Web3(Web3.HTTPProvider("https://polygon-amoy.g.alchemy.com/v2/sKY-3irlCflk8GD0bZFMjAicdwR8ngNe"))  # replace with your provider URL
 
 # load contract JSON files
 with open('./blockchain1/build/contracts/creator.json') as f:

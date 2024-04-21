@@ -15,7 +15,6 @@ import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Card from "@/components/Card";
 import { SimpleGrid, Spinner } from "@chakra-ui/react";
-import Popup from "@/components/Popup";
 import Web3 from "web3";
 import { init } from "../../src/helpers/Inıt";
 import { Contract } from "web3-eth-contract";
@@ -30,6 +29,7 @@ import {
   SUB_DAOS,
   LINE_COUNT,
 } from "../../constant";
+import { toast } from "react-toastify";
 
 declare global {
   interface Window {
@@ -47,8 +47,6 @@ interface Dao {
 
 export default function Home() {
   const [account, setAccount] = useState(null);
-  const [alertMessage, setAlertMessage] = useState({ text: "", title: "" }); //this is used inside Popup component, to pass a message to the inside of the popup when an error occurs, or a transaction is successful, or in a case of warning
-  const [popupTrigger, setPopupTrigger] = useState(false); //this is used inside Popup component, to trigger the popup to show up
 
   const [daoFactoryContract, setDaoFactoryContract] = useState<Contract<any> | undefined>(undefined);
 
@@ -58,23 +56,38 @@ export default function Home() {
   const [isCorrect, setIsCorrect] = useState(false); //this is used to change between the tabs, we will set it when a user clicks on the buttons on the sidebar, in default it is set to 10, which is the view proposals tab
   const [isLoaded, setIsLoaded] = useState(false); //to check if the page is loaded, i.e. all the DAOs are fetched from the blockchain
 
+  const [walletError, setWalletError] = useState<React.ReactNode | null>(null);
+
   useEffect(() => {
-    if (!isLoaded) {
-      (async () => {
-        try {
-          const { account, daoFactoryContract, fetchedDaos } = await init();
-          setAccount(account);
-          setDaoFactoryContract(daoFactoryContract);
-          setDaos(fetchedDaos);
-        } catch (error) {
-          console.error("Initialization error:", error);
-          const message = (error as Error).message;
-          setAlertMessage({ title: "Error", text: message });
-          setPopupTrigger(true);
-        } finally {
-          setIsLoaded(true);
-        }
-      })();
+    if (!window.ethereum) {
+      setWalletError(
+        <div>
+          <p>Please install an Ethereum wallet like MetaMask to interact with the SuGovern DAO.</p>
+          <br />
+          <p>
+            If you are using Safari or any other browser that does not support MetaMask browser extension, please use a
+            different browser.
+          </p>
+          <br />
+        </div>
+      );
+    } else {
+      if (!isLoaded) {
+        (async () => {
+          try {
+            const { account, daoFactoryContract, fetchedDaos } = await init();
+            setAccount(account);
+            setDaoFactoryContract(daoFactoryContract);
+            setDaos(fetchedDaos);
+          } catch (error) {
+            console.error("Initialization error:", error);
+            const message = (error as Error).message;
+            toast.error(message);
+          } finally {
+            setIsLoaded(true);
+          }
+        })();
+      }
     }
   }, [isLoaded]);
 
@@ -86,6 +99,25 @@ export default function Home() {
     console.log(target[0].value);
     // setInp(target[0].value); // Uncomment and define setInp function or state
   };
+
+  if (walletError) {
+    return (
+      <div style={{ textAlign: "center" }}>
+        <p>{walletError}</p>
+        <p>
+          You can find needed information in our{" "}
+          <a
+            href="https://sugovern.github.io/sugovern-user-docs/what-is-sugovern/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "underline" }}
+          >
+            User Docs
+          </a>
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-fit w-full flex-col items-center justify-center gap-20 mt-20">
@@ -112,11 +144,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      <Popup trigger={popupTrigger} setTrigger={setPopupTrigger}>
-        <h2 className="text-black">{alertMessage.title}</h2>
-        <p>{alertMessage.text}</p>
-      </Popup>
     </div>
   );
 }
