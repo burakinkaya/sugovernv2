@@ -41,6 +41,7 @@ const CreateChildDAO: React.FC<CreateChildDAOProps> = ({ onCreateChildDAO }) => 
             onChange={(e) => {
               daoInfo.current = { ...daoInfo.current, name: e.target.value };
             }}
+            style={{ color: "black" }}
           />
         </div>
         <br />
@@ -56,12 +57,13 @@ const CreateChildDAO: React.FC<CreateChildDAOProps> = ({ onCreateChildDAO }) => 
             onChange={(e) => {
               daoInfo.current = { ...daoInfo.current, desc: e.target.value };
             }}
+            style={{ color: "black" }}
           />
         </div>
         <br />
         <div className="form-group">
           <label htmlFor="daoImage" className="block text-sm font-medium text-gray-700">
-            DAO Image
+            DAO Image URL
           </label>
           <input
             type="text"
@@ -71,6 +73,7 @@ const CreateChildDAO: React.FC<CreateChildDAOProps> = ({ onCreateChildDAO }) => 
             onChange={(e) => {
               daoInfo.current = { ...daoInfo.current, image: e.target.value };
             }}
+            style={{ color: "black" }}
           />
         </div>
         <br />
@@ -86,6 +89,7 @@ const CreateChildDAO: React.FC<CreateChildDAOProps> = ({ onCreateChildDAO }) => 
             onChange={(e) => {
               daoInfo.current = { ...daoInfo.current, YKTokenName: e.target.value };
             }}
+            style={{ color: "black" }}
           />
         </div>
         <br />
@@ -101,6 +105,7 @@ const CreateChildDAO: React.FC<CreateChildDAOProps> = ({ onCreateChildDAO }) => 
             onChange={(e) => {
               daoInfo.current = { ...daoInfo.current, YKTokenSymbol: e.target.value };
             }}
+            style={{ color: "black" }}
           />
         </div>
         <br />
@@ -116,6 +121,7 @@ const CreateChildDAO: React.FC<CreateChildDAOProps> = ({ onCreateChildDAO }) => 
             onChange={(e) => {
               daoInfo.current = { ...daoInfo.current, voterTokenName: e.target.value };
             }}
+            style={{ color: "black" }}
           />
         </div>
         <br />
@@ -131,6 +137,7 @@ const CreateChildDAO: React.FC<CreateChildDAOProps> = ({ onCreateChildDAO }) => 
             onChange={(e) => {
               daoInfo.current = { ...daoInfo.current, voterTokenSymbol: e.target.value };
             }}
+            style={{ color: "black" }}
           />
         </div>
         <br />

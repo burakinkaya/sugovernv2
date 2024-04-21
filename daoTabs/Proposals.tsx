@@ -44,7 +44,7 @@ const Proposals: React.FC<ProposalsProps> = ({
         setAllProposals(proposals);
         setCollapsed(new Array(proposals.length).fill(true));
       } catch (err) {
-        console.error("Error fetching proposals:", err);
+        console.error("Error fetching proposalsssss:", err);
       } finally {
         setLoaded(true);
       }

@@ -41,6 +41,7 @@ const ClawBack: React.FC<ClawBackProps> = ({
           onChange={(e) => {
             info.current = { ...info.current, addressYK: e.target.value };
           }}
+          style={{ color: "black" }}
         />
       )}
       <button
@@ -70,6 +71,7 @@ const ClawBack: React.FC<ClawBackProps> = ({
           onChange={(e) => {
             info.current = { ...info.current, addressVoter: e.target.value };
           }}
+          style={{ color: "black" }}
         />
       )}
       <button

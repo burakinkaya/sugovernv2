@@ -34,6 +34,7 @@ const CreateProposal: React.FC<CreateProposalProps> = ({ onCreateProposal }) => 
                 onChange={(e) => {
                   proposal.current.text = e.target.value;
                 }}
+                style={{ color: "black" }}
               />
             </div>
           </div>
@@ -49,6 +50,7 @@ const CreateProposal: React.FC<CreateProposalProps> = ({ onCreateProposal }) => 
               onChange={(e) => {
                 proposal.current.desc = e.target.value;
               }}
+              style={{ color: "black" }}
             />
           </div>
           <br />
@@ -68,6 +70,7 @@ const CreateProposal: React.FC<CreateProposalProps> = ({ onCreateProposal }) => 
                     onChange={(e) => {
                       proposal.current.options[inputList.length] = e.target.value;
                     }}
+                    style={{ color: "black" }}
                   />
                 </div>,
               ]);
@@ -101,6 +104,7 @@ const CreateProposal: React.FC<CreateProposalProps> = ({ onCreateProposal }) => 
             onChange={(e) => {
               proposal.current.voting_power = Number(e.target.value);
             }}
+            style={{ color: "black" }}
           />
           <br />
           <br />

@@ -1,4 +1,4 @@
-export const DAO_ADDRESS = "0xc81272b02750ef06f22908ff50dd2c95be4baacf";
+export const DAO_ADDRESS = "0xC81272b02750Ef06F22908ff50dd2C95Be4BAACF";
 export const FACTORY_JSON = require("./blockchain1/build/contracts/DAOFactory.json");
 export const DAO_JSON = require("./blockchain1/build/contracts/MyDAO.json");
 export const TOKEN_JSON = require("./blockchain1/build/contracts/SUToken.json");

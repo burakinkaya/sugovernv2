@@ -18,11 +18,12 @@ const SendYKToken: React.FC<SendYKTokenProps> = ({ onSendTokens }) => {
         <input
           id="addressInput"
           type="text"
-          className="shadow appearance-none border rounded-md w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           placeholder="Wallet Address"
           onChange={(e) => {
             info.current = { ...info.current, address: e.target.value };
           }}
+          style={{ color: "black" }}
         />
       </div>
 
@@ -38,6 +39,7 @@ const SendYKToken: React.FC<SendYKTokenProps> = ({ onSendTokens }) => {
           onChange={(e) => {
             info.current = { ...info.current, amount: Number(e.target.value) };
           }}
+          style={{ color: "black" }}
         />
       </div>
 

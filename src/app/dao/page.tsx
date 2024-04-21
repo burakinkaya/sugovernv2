@@ -399,19 +399,28 @@ export default function Dao() {
       const result = await contracts.daoContract.methods.getProposalName().call();
       proposalNames = result;
     } catch (err: any) {
-      console.error(err.toString());
+      console.error("Error fetching proposal names:", err.toString());
       return []; // Return an empty array on error
     }
 
     const proposals: (Proposal | null)[] = await Promise.all(
       proposalNames.map(async (name, index) => {
+        let voted;
         try {
           const voteNames = await contracts.daoContract.methods.getProposalVoteNames(index).call();
           const voteNumbers = await contracts.daoContract.methods.getProposalVoteNumbers(index).call();
           const proposalPower = parseInt(await contracts.daoContract.methods.getProposalPower(index).call(), 10);
           const proposalType = await contracts.daoContract.methods.getProposalType(index).call();
-          const voted = (await contracts.daoContract.methods.votes(String(walletAddress), index).call()) === "true";
-          const description = await contracts.daoContract.methods.getProposalDescription().call();
+
+          console.log("Wallet address and index : ", walletAddress, index);
+          console.log("Types of walletAddress and index : ", typeof walletAddress, typeof index);
+
+          if (walletAddress && typeof index === "number") {
+            voted = await contracts.daoContract.methods.votes(String(walletAddress), index).call();
+          }
+
+          const descriptionArray = await contracts.daoContract.methods.getProposalDescription().call();
+          const description = descriptionArray[index];
           const status = parseInt(
             await contracts.daoContract.methods
               .proposals(index)
@@ -420,9 +429,9 @@ export default function Dao() {
             10
           );
 
-          const proposal = {
+          const proposal: Proposal = {
             title: name,
-            description: description[index], // Make sure this indexing is correct
+            description,
             votingPower: proposalPower,
             choices: voteNames,
             type: proposalType,
@@ -431,12 +440,14 @@ export default function Dao() {
             voteNumbers,
           };
 
-          // Log each proposal to console
           console.log(`Fetched proposal ${index}:`, proposal);
-
           return proposal;
         } catch (err) {
-          console.error(`Error fetching proposal ${index}:`, err);
+          if (err instanceof Error) {
+            console.error(`Error fetching proposal ${index}:`, err.message);
+          } else {
+            console.error(`Error fetching proposal ${index}:`, err);
+          }
           return null; // Mark faulty data with null
         }
       })
@@ -589,6 +600,7 @@ export default function Dao() {
     }
     //get number of child DAOs
     let numChildren: number | undefined;
+
     await contracts.daoFactoryContract.methods
       .num_children(String(address))
       .call()
@@ -601,8 +613,13 @@ export default function Dao() {
     let subDAOs: any[] = [];
     if (numChildren !== undefined) {
       for (var i = 0; i < numChildren; i++) {
+        console.log("address: ", address);
+        console.log("address type: ", typeof address);
+
+        const checksummedAddress = Web3.utils.toChecksumAddress(address!.toString());
+
         await contracts.daoFactoryContract.methods
-          .parent_child_daos(String(address), i.toString())
+          .parent_child_daos(checksummedAddress, i)
           .call()
           .then((result: any) => {
             subDAOs.push(result);

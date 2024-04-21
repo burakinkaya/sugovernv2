@@ -8,6 +8,8 @@ interface Proposal {
   choices: string[];
   type: string;
   voted: boolean;
+  status: number;
+  voteNumbers: number[];
 }
 
 interface VoteOnProposalsProps {
@@ -88,6 +90,7 @@ const VoteOnProposals: React.FC<VoteOnProposalsProps> = ({
                     className="w-16 text-center bg-white text-black border border-gray-300 shadow-inner rounded-lg"
                     disabled={proposal.voted}
                     value={currAmountOfVotes[index][choiceIndex]}
+                    style={{ color: "black" }}
                   />
                   <button
                     className="px-3 py-2 text-white bg-blue-500 rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
@@ -123,7 +126,7 @@ const VoteOnProposals: React.FC<VoteOnProposalsProps> = ({
                       );
                 }}
               >
-                Vote
+                {proposal.voted ? "You already Voted" : "Vote"}
               </button>
             </div>
           </div>

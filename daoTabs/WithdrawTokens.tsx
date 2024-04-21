@@ -51,6 +51,7 @@ const WithdrawTokens: React.FC<WithdrawTokensProps> = ({
               onChange={(e) => {
                 info.current = { ...info.current, amount1: Number(e.target.value) };
               }}
+              style={{ color: "black" }}
             />
           </div>
 
@@ -77,6 +78,7 @@ const WithdrawTokens: React.FC<WithdrawTokensProps> = ({
               onChange={(e) => {
                 info.current = { ...info.current, amount2: Number(e.target.value) };
               }}
+              style={{ color: "black" }}
             />
           </div>
 

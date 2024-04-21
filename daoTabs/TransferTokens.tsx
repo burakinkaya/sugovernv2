@@ -34,6 +34,8 @@ const TransferTokens: React.FC<TransferTokensProps> = ({ onTransferVoterTokens, 
             id="addressBoxYK"
             className="shadow appearance-none border rounded-md w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
             onChange={(e) => (info.current = { ...info.current, addressYK: e.target.value })}
+            style={{ color: "black" }}
+            placeholder="Wallet Address"
           />
         </div>
         <div className="mb-4">
@@ -45,6 +47,8 @@ const TransferTokens: React.FC<TransferTokensProps> = ({ onTransferVoterTokens, 
             id="amountYK"
             className="shadow appearance-none border rounded-md w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
             onChange={(e) => (info.current = { ...info.current, amountYK: parseInt(e.target.value) || 0 })}
+            style={{ color: "black" }}
+            placeholder="Enter Number of Tokens"
           />
         </div>
         <button
@@ -68,6 +72,8 @@ const TransferTokens: React.FC<TransferTokensProps> = ({ onTransferVoterTokens, 
             id="addressBoxVoter"
             className="shadow appearance-none border rounded-md w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
             onChange={(e) => (info.current = { ...info.current, addressVoter: e.target.value })}
+            style={{ color: "black" }}
+            placeholder="Wallet Address"
           />
         </div>
         <div className="mb-4">
@@ -79,6 +85,8 @@ const TransferTokens: React.FC<TransferTokensProps> = ({ onTransferVoterTokens, 
             id="amountVoter"
             className="shadow appearance-none border rounded-md w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
             onChange={(e) => (info.current = { ...info.current, amountVoter: parseInt(e.target.value) || 0 })}
+            style={{ color: "black" }}
+            placeholder="Enter Number of Tokens"
           />
         </div>
         <button

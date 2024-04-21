@@ -22,6 +22,7 @@ const SendVoterToken: React.FC<SendVoterTokenProps> = ({ onSendTokens }) => {
           }}
           className="shadow appearance-none border rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-black"
           placeholder="Wallet Address"
+          style={{ color: "black" }}
         />
       </div>
       <div className="mb-4">
@@ -33,6 +34,7 @@ const SendVoterToken: React.FC<SendVoterTokenProps> = ({ onSendTokens }) => {
             info.current = { ...info.current, amount: e.target.value };
           }}
           placeholder="Enter Number of Tokens"
+          style={{ color: "black" }}
         />
       </div>
       <button
